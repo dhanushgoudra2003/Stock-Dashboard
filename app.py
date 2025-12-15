@@ -26,15 +26,15 @@ if "prices" not in st.session_state:
 # ------------------ LOGIN PAGE ------------------
 def login_page():
     st.title("📈 Stock Broker Client Dashboard")
-
     st.subheader("Login")
+
     email = st.text_input("Enter your email")
 
     if st.button("Login"):
         if email:
             st.session_state.logged_in = True
             st.session_state.email = email
-            st.experimental_rerun()
+            st.rerun()
         else:
             st.error("Please enter an email")
 
@@ -46,7 +46,7 @@ def dashboard_page():
     # ---- LOGOUT ----
     if st.sidebar.button("Logout"):
         st.session_state.clear()
-        st.experimental_rerun()
+        st.rerun()
 
     st.divider()
 
@@ -79,9 +79,9 @@ def dashboard_page():
                 value=f"${st.session_state.prices[stock]}"
             )
 
-    # ---- STREAMLIT CLOUD SAFE AUTO-REFRESH ----
+    # ---- CLOUD SAFE AUTO REFRESH ----
     time.sleep(1)
-    st.experimental_rerun()
+    st.rerun()
 
 # ------------------ MAIN ------------------
 if not st.session_state.logged_in:
