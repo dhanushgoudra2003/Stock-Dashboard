@@ -38,6 +38,7 @@ def login_page():
         if email:
             st.session_state.logged_in = True
             st.session_state.email = email
+            st.success("Login successful")
         else:
             st.error("Please enter an email")
 
@@ -74,7 +75,7 @@ def dashboard_page():
         st.info("No stocks subscribed yet")
     else:
         for stock in st.session_state.subscriptions:
-            # Update price randomly
+            # Random price update
             st.session_state.prices[stock] += random.randint(-5, 5)
 
             st.metric(
