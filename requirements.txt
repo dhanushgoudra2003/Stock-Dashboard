@@ -1,6 +1,1 @@
-flask
-flask-socketio
-numpy
-pandas
-pandas-ta
-eventlet
+streamlit
