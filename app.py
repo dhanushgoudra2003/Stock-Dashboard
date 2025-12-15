@@ -1,6 +1,6 @@
 import streamlit as st
 import random
-import time
+from streamlit_autorefresh import st_autorefresh
 
 # ------------------ CONFIG ------------------
 st.set_page_config(
@@ -9,6 +9,10 @@ st.set_page_config(
 )
 
 SUPPORTED_STOCKS = ["GOOG", "TSLA", "AMZN", "META", "NVDA"]
+
+# ------------------ AUTO REFRESH ------------------
+# Refresh every 1 second (1000 ms)
+st_autorefresh(interval=1000, key="stock_refresh")
 
 # ------------------ SESSION STATE INIT ------------------
 if "logged_in" not in st.session_state:
@@ -34,19 +38,18 @@ def login_page():
         if email:
             st.session_state.logged_in = True
             st.session_state.email = email
-            st.rerun()
         else:
             st.error("Please enter an email")
 
 # ------------------ DASHBOARD PAGE ------------------
 def dashboard_page():
-    st.title("📊 Stock Dashboard")
+    st.title("📊 Live Stock Dashboard")
     st.write(f"👤 User: **{st.session_state.email}**")
 
     # ---- LOGOUT ----
     if st.sidebar.button("Logout"):
         st.session_state.clear()
-        st.rerun()
+        st.stop()
 
     st.divider()
 
@@ -71,17 +74,13 @@ def dashboard_page():
         st.info("No stocks subscribed yet")
     else:
         for stock in st.session_state.subscriptions:
-            # update price
+            # Update price randomly
             st.session_state.prices[stock] += random.randint(-5, 5)
 
             st.metric(
                 label=stock,
                 value=f"${st.session_state.prices[stock]}"
             )
-
-    # ---- CLOUD SAFE AUTO REFRESH ----
-    time.sleep(1)
-    st.rerun()
 
 # ------------------ MAIN ------------------
 if not st.session_state.logged_in:
