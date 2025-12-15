@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Prime Style</title>
+    <style>
+        /* Prime Video Theme */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #000; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { background-color: #19232D; padding: 40px; border-radius: 8px; box-shadow: 0 0 15px rgba(255, 153, 0, 0.5); width: 300px; text-align: center; }
+        h1 { color: #FF9900; margin-bottom: 25px; font-weight: 600; }
+        input[type="email"], input[type="password"] { 
+            width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #333; 
+            border-radius: 4px; background-color: #2F3B48; color: #fff; box-sizing: border-box; 
+        }
+        button { 
+            width: 100%; padding: 10px; background-color: #FF9900; color: #000; border: none; 
+            border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold; transition: background-color 0.3s; 
+        }
+        button:hover { background-color: #CC7A00; }
+        .error { color: #F44336; margin-bottom: 15px; font-weight: bold; }
+        .login-link { margin-top: 15px; font-size: 14px; }
+        .login-link a { color: #fff; text-decoration: none; border-bottom: 1px dashed #FF9900; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Prime Broker Sign Up</h1>
+        {% if error %}
+            <p class="error">⚠️ {{ error }}</p>
+        {% endif %}
+        <form method="POST" action="{{ url_for('signup') }}">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password (min 8 chars)" required>
+            <button type="submit">Create Account</button>
+        </form>
+        <div class="login-link">
+            Already have an account? <a href="{{ url_for('login') }}">Log In</a>
+        </div>
+    </div>
+</body>
+</html>
